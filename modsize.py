@@ -1,4 +1,3 @@
-
 import filetype
 import argparse
 
@@ -18,10 +17,10 @@ def modify_file(offset1, offset2, filename,output, width=None, height=None):
 	with open(filename,'rb') as f:
 		arr = f.read()
 	for b in arr:
-		bin_arr.append(b)
+		bin_arr.append(bytes([b]))
 		
-	org_width = hex(int(bin_arr[offset1].encode("hex") + bin_arr[offset1+1].encode("hex"),16))
-	org_height = hex(int(bin_arr[offset2].encode("hex") + bin_arr[offset2+1].encode("hex"),16))
+	org_width = hex(int(bin_arr[offset1].hex() + bin_arr[offset1+1].hex(),16))
+	org_height = hex(int(bin_arr[offset2].hex() + bin_arr[offset2+1].hex(),16))
 
 
 	
@@ -67,16 +66,16 @@ def modify_png(filename,output,width,height):
 
 
 def modify_jpg(filename,output,width,height):
-	bin_arr = [] 
 	with open(filename,'rb') as f:
 		arr = f.read()
 	prev = ""
 	i = 0
 	for b in arr:
-		if prev + b.encode("hex") == "ffc0":
+		b = bytes([b])
+		if prev + b.hex() == "ffc0":
 			break
 		i+=1
-		prev = b.encode("hex")
+		prev = b.hex()
 	print("Found magic bytes on offset %d " % i)
 	modify_file(i+6,i+4,filename,output,width,height)
 
@@ -93,4 +92,5 @@ def process_file(filename,output,width,height):
 		modify_jpg(filename,output,width,height)
 	else:
 		print("Filetype not supported")
+
 process_file(args.file, args.output, args.width, args.height)
