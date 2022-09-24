@@ -1,6 +1,4 @@
 
-from pwn import *
-from subprocess import call
 import filetype
 import argparse
 
