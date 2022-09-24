@@ -1,5 +1,6 @@
 import filetype
 import argparse
+import os
 
 rot_value = 0 #Default value
 parser = argparse.ArgumentParser()
