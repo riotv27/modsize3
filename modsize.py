@@ -62,10 +62,6 @@ def modify_file(offset1, offset2, filename,output, width=None, height=None):
 	
 def modify_png(filename,output,width,height):
 	modify_file(18,22, filename,output,width,height)
-	
-
-	
-
 	os.remove("%s" % output)
 	os.rename("%snew" % output, output)
 
