@@ -15,8 +15,7 @@ args = parser.parse_args()
 
 
 def modify_file(offset1, offset2, filename,output, width=None, height=None):
-	p = log.progress('modsize')
-	p.status('Loading image')
+	print("Loading")
 	bin_arr = [] 
 	with open(filename,'rb') as f:
 		arr = f.read()
@@ -27,12 +26,12 @@ def modify_file(offset1, offset2, filename,output, width=None, height=None):
 	org_height = hex(int(bin_arr[offset2].encode("hex") + bin_arr[offset2+1].encode("hex"),16))
 
 
-	p.success("Image loaded!")
-	log.info("Detected width: %d px" % int(org_width,16))
-	log.info("Detected height: %d px" % int(org_height,16))
+	
+	print("Detected width: %d px" % int(org_width,16))
+	print("Detected height: %d px" % int(org_height,16))
 
 	if width == None and height == None:
-		log.warn("Nothing todo. Set width/height?")
+		print("Nothing todo. Set width/height?")
 		exit()
 
 	if width == None:
@@ -45,9 +44,9 @@ def modify_file(offset1, offset2, filename,output, width=None, height=None):
 	new_height=str(hex(height))[2:].zfill(4)
 
 	if str(org_width)[2:] != new_width:
-		log.info("New width: %d px" % int(new_width,16))
+		print("New width: %d px" % int(new_width,16))
 	if str(org_height)[2:] != new_height:
-		log.info("New height: %d px" % int(new_height,16))
+		print("New height: %d px" % int(new_height,16))
 	
 
 	#Set width
@@ -57,22 +56,17 @@ def modify_file(offset1, offset2, filename,output, width=None, height=None):
 	bin_arr[offset2]=str(new_height)[:2].decode("hex")
 	bin_arr[offset2+1]=str(new_height)[2:].decode("hex")
 
-	p = log.progress("modsize")
-	p.status("Saving new image file")
+	
+	
 	with open(output, "wb") as binary_file:
 		binary_file.write("".join(bin_arr))
-	p.success("Image saved!")
+	print("Image saved!")
 	
 def modify_png(filename,output,width,height):
 	modify_file(18,22, filename,output,width,height)
-	#Fix crc32 checksum
-	p = log.progress("modsize")
-	p.status("Fixing checksum of new image")
+	
 
-	FNULL = open(os.devnull, 'w')
-	retcode = call(["pngcsum", "%s" % output, output + "new"])
-
-	p.success("Checksum now OK")
+	
 
 	os.remove("%s" % output)
 	os.rename("%snew" % output, output)
@@ -89,7 +83,7 @@ def modify_jpg(filename,output,width,height):
 			break
 		i+=1
 		prev = b.encode("hex")
-	log.info("Found magic bytes on offset %d " % i)
+	print("Found magic bytes on offset %d " % i)
 	modify_file(i+6,i+4,filename,output,width,height)
 
 def process_file(filename,output,width,height):
@@ -98,11 +92,11 @@ def process_file(filename,output,width,height):
 		print('Filetype not supported!')
 		return
 	if kind.mime == "image/png":
-		log.info("Detected: png")
+		print("Detected: png")
 		modify_png(filename,output,width,height)
 	elif kind.mime == "image/jpeg":
-		log.info("Detected: jpg")
+		print("Detected: jpg")
 		modify_jpg(filename,output,width,height)
 	else:
-		log.error("Filetype not supported")
+		print("Filetype not supported")
 process_file(args.file, args.output, args.width, args.height)
