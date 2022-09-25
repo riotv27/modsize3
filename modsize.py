@@ -4,12 +4,7 @@ import os
 import re
 
 rot_value = 0 #Default value
-parser = argparse.ArgumentParser()
-parser.add_argument("file", help="Filepath to image")
-parser.add_argument("output", help="Filepath to image")
-parser.add_argument("--width", "-sw", type=int, help="New width of image")
-parser.add_argument("--height", "-sh", type=int, help="New height of image")
-args = parser.parse_args()
+
 
 
 def modify_file(offset1, offset2, filename,output, width=None, height=None):
@@ -90,4 +85,12 @@ def process_file(filename,output,width,height):
 	else:
 		print("Filetype not supported")
 
-process_file(args.file, args.output, args.width, args.height)
+if __name__ = "__main__":
+	parser = argparse.ArgumentParser()
+	parser.add_argument("file", help="Filepath to image")
+	parser.add_argument("output", help="Filepath to image")
+	parser.add_argument("--width", "-sw", type=int, help="New width of image")
+	parser.add_argument("--height", "-sh", type=int, help="New height of image")
+	args = parser.parse_args()
+	
+	process_file(args.file, args.output, args.width, args.height)
