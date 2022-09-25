@@ -49,11 +49,11 @@ def modify_file(offset1, offset2, filename,output, width=None, height=None):
 	
 
 	#Set width
-	bin_arr[offset1]=str(new_width)[:2].decode("hex")
-	bin_arr[offset1+1]=str(new_width)[2:].decode("hex")
+	bin_arr[offset1]=bytes.fromhex(str(new_width)[:2])
+	bin_arr[offset1+1]=bytes.fromhex(str(new_width)[2:])
 	#set height
-	bin_arr[offset2]=str(new_height)[:2].decode("hex")
-	bin_arr[offset2+1]=str(new_height)[2:].decode("hex")
+	bin_arr[offset2]=bytes.fromhex(str(new_height)[:2])
+	bin_arr[offset2+1]=bytes.fromhex(str(new_height)[2:])
 
 	
 	
