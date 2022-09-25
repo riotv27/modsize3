@@ -74,7 +74,7 @@ def modify_jpg(filename,output,width,height):
 	i = 0
 	for b in arr:
 		b = bytes([b])
-		if re.match("ffc[0-9]",prev + b.hex()):
+		if re.match("ffc[0-3]",prev + b.hex()):
 			break
 		i+=1
 		prev = b.hex()
