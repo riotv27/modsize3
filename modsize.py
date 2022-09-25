@@ -58,7 +58,7 @@ def modify_file(offset1, offset2, filename,output, width=None, height=None):
 	
 	
 	with open(output, "wb") as binary_file:
-		binary_file.write("".join(bin_arr))
+		binary_file.write(b"".join(bin_arr))
 	print("Image saved!")
 	
 def modify_png(filename,output,width,height):
