@@ -1,5 +1,6 @@
 # modsize3
-Still modsize but using Python3
+
+Modsize - compatible with Python3
 
 
 
