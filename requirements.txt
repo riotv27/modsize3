@@ -1,3 +1,1 @@
 filetype>=1.0.1
-pwntools>=3.12.1
-pwn>=1.0
