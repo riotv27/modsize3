@@ -25,4 +25,4 @@ optional arguments:
 ## Install
 
 * pip install -r requirements.txt
-* [pngcsum](http://schaik.com/png/pngcsum.html) - Using with PNG
+* [pngcsum](http://schaik.com/png/pngcsum.html) - Optional
