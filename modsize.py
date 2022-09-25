@@ -1,6 +1,7 @@
 import filetype
 import argparse
 import os
+import re
 
 rot_value = 0 #Default value
 parser = argparse.ArgumentParser()
@@ -73,7 +74,7 @@ def modify_jpg(filename,output,width,height):
 	i = 0
 	for b in arr:
 		b = bytes([b])
-		if prev + b.hex() == "ffc0":
+		if re.match("ffc[0-9]",prev + b.hex()):
 			break
 		i+=1
 		prev = b.hex()
